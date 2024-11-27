@@ -1,0 +1,83 @@
+﻿@model OnlineBookStore.Models.CartViewModel
+
+<h2>Shopping Cart</h2>
+
+@if (Model.SelectedBooks != null && Model.SelectedBooks.Any())
+{
+    <table id="books">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price (R)</th>
+            <th>Cart</th>
+        </tr>
+        @foreach (var book in Model.SelectedBooks)
+        {
+            <tr>
+                <td style="width: 470px" ;>@book.Title</td>
+                <td style="width: 280px">@book.Author</td>
+                <td>@book.Price</td>
+                <td style="width: 200px; text-align: center">
+                    @using (Html.BeginForm("RemoveFromCart", "Cart", new { id = book.Id }, FormMethod.Post))
+                    {
+                        <input type="submit" value="Remove" class="search-button" />
+                    }
+                </td>
+            </tr>
+        }
+        <tr></tr>
+        <tr>
+            <td colspan="2"><strong>Total Price:</strong></td>
+            <td>@Model.TotalPrice</td>
+        </tr>
+    </table>
+}
+else
+{
+    <p>Your shopping cart is empty.</p>
+}
+
+<style>
+    #books {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 16px;
+        margin-bottom: 24px;
+    }
+
+    #books td, #books th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #books tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #books tr:hover {
+        background-color: #ddd;
+    }
+
+    #books th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #48a6b2;
+        color: white;
+    }
+
+    .search-button {
+        padding: 5px 10px;
+        background-color: dodgerblue;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 4px;
+    }
+
+    .search-button:hover {
+        background-color: #0069d9;
+    }
+</style>
